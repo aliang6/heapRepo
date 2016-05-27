@@ -1,3 +1,9 @@
+// Shariar Kabir, Owen Zeng, Andy Liang
+// APCS2 pd5
+// HW #46: Running M[edi]an
+// 2016-05-24
+
+
 /*****************************************************
  * class RunMed
  * Implements an online algorithm to track the median of a growing dataset
@@ -11,8 +17,8 @@
 public class RunMed {
 
     //instance vars
-    private ALMaxHeap leftHeap;  //for lower range of dataset
-    private ALMinHeap rightHeap; //for upper range of dataset
+    private MaxHeap leftHeap;  //for lower range of dataset
+    private MinHeap rightHeap; //for upper range of dataset
 
 
     /*****************************************************
@@ -20,8 +26,8 @@ public class RunMed {
      *****************************************************/
     public RunMed() 
     { 
-	leftHeap = new ALMaxHeap();
-	rightHeap = new ALMinHeap();
+      leftHeap=new MaxHeap();
+      rightHeap=new MinHeap();
     }//O(1)
 
 
@@ -31,7 +37,14 @@ public class RunMed {
      *****************************************************/
     public double getMedian() 
     {
-
+      int sumEle= (leftHeap._heap.size() + rightHeap._heap.size());
+      if ((sumEle % 2)==1 && rightHeap._heap.size() > leftHeap._heap.size()){
+        return rightHeap.peekMin();
+      }
+      else{
+        return leftHeap.peekMax();
+      
+      }
     }//O(1)
 
 
@@ -43,7 +56,18 @@ public class RunMed {
      *****************************************************/
     public void insert( int addVal )
     {   
-	
+      if (rightHeap.isEmpty() && rightHeap.peekMin() < addVal){
+        rightHeap.add(addVal);
+      }
+      else{
+        leftHeap.add(addVal);
+      }
+      int Ele= (leftHeap._heap.size() + rightHeap._heap.size());
+        
+      
+      
+      
+      
      }//O(?)
 
 
@@ -54,7 +78,11 @@ public class RunMed {
      *****************************************************/
     public boolean isEmpty() 
     {
-
+      if (rightHeap.isEmpty() && leftHeap.isEmpty()){
+        return true;
+      
+      }
+      return false;
     }//O(?)
 
 
@@ -62,20 +90,20 @@ public class RunMed {
     //main method for testing
     public static void main( String[] args ) {
 
-	/*~~~V~~~~~~~~~~~~move~me~down~~~~~~~~~~~~~V~~~
-        RunMed med = new RunMed();
 
+        RunMed med = new RunMed();
         med.insert(1);
-	System.out.println( med.getMedian() ); //1
+         /*~~~V~~~~~~~~~~~~move~me~down~~~~~~~~~~~~~V~~~
+ System.out.println( med.getMedian() ); //1
         med.insert(3);
-	System.out.println( med.getMedian() ); //2
+ System.out.println( med.getMedian() ); //2
         med.insert(5);
-	System.out.println( med.getMedian() ); //3
+ System.out.println( med.getMedian() ); //3
         med.insert(7);
-	System.out.println( med.getMedian() ); //4
+ System.out.println( med.getMedian() ); //4
         med.insert(9);
-	System.out.println( med.getMedian() ); //5
-	~~~~~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~~~*/
+ System.out.println( med.getMedian() ); //5
+ ~~~~~|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|~~~*/
 
     }//end main()
 
@@ -88,6 +116,5 @@ public class RunMed {
      *****************************************************/
     // (  )
     // {
-    // 	/*** YOUR IMPLEMENTATION HERE ***/
+    //  /*** YOUR IMPLEMENTATION HERE ***/
     // }//O(?)
-
